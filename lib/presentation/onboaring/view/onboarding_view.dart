@@ -3,7 +3,7 @@ import 'package:flutter/services.dart';
 import 'package:flutter_adv/presentation/resources/color_manger.dart';
 import 'package:flutter_adv/presentation/resources/values_manger.dart';
 import 'package:flutter_svg/flutter_svg.dart';
-import '../../../domain/models.dart';
+import '../../../domain/model/models.dart';
 import '../../resources/assets_manger.dart';
 import '../../resources/constants.dart';
 import '../../resources/routes_manger.dart';
