@@ -18,6 +18,7 @@ dependencies:
   dartz: ^0.10.1
 
   flutter_native_splash: ^2.2.19
+  internet_connection_checker: ^1.0.0+1
 flutter_native_splash:
   android: true
   ios: true
