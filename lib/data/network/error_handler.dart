@@ -17,33 +17,30 @@ class ErrorHandler implements Exception {
 
 Failure _handleError(DioError error) {
   switch (error.type) {
-    case DioErrorType.connectionTimeout:
+    case DioErrorType.connectTimeout:
       return DataSource.CONNECT_TIMEOUT.getFailure();
+
     case DioErrorType.sendTimeout:
       return DataSource.SEND_TIMEOUT.getFailure();
+
     case DioErrorType.receiveTimeout:
       return DataSource.RECIEVE_TIMEOUT.getFailure();
 
-    case DioErrorType.badCertificate:
-      return DataSource.BAD_REQUEST.getFailure();
-    case DioErrorType.badResponse:
+    case DioErrorType.response:
       if (error.response != null &&
           error.response?.statusCode != null &&
           error.response?.statusMessage != null) {
         return Failure(error.response?.statusCode ?? 0,
             error.response?.statusMessage ?? "");
       } else {
-        DataSource.DEFAULT.getFailure();
+        return DataSource.DEFAULT.getFailure();
       }
     case DioErrorType.cancel:
       return DataSource.CANCEL.getFailure();
-    case DioErrorType.connectionError:
-    // Todo connectionError
-    case DioErrorType.unknown:
+    case DioErrorType.other:
       return DataSource.DEFAULT.getFailure();
   }
 }
-
 enum DataSource {
   SUCCESS,
   NO_CONTENT,
@@ -152,4 +149,8 @@ class ResponseMessage {
   static const String NO_INTERNET_CONNECTION =
       "please check your internet connection";
   static const String DEFAULT = "some thing went wrong try again later";
+}
+class ApiInternalStatus{
+  static const int SUCCESS = 0;
+  static const int FAILURE = 1;
 }

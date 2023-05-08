@@ -2,6 +2,7 @@ import 'package:dartz/dartz.dart';
 import 'package:flutter_adv/data/mapper/mapper.dart';
 
 import 'package:flutter_adv/data/network/Failure.dart';
+import 'package:flutter_adv/data/network/error_handler.dart';
 
 import 'package:flutter_adv/data/network/requests.dart';
 
@@ -22,23 +23,28 @@ class RepositoryImpl implements Repository {
   Future<Either<Failure, Authentication>> login(
       LoginRequest loginRequest) async {
     if (await _networkInfo.isConnected) {
-// its connected to the network internet so its safe to call api
-      final response = await _remoteDataSource.login(loginRequest);
+      // its connected to the network internet so its safe to call api
+      try {
+        final response = await _remoteDataSource.login(loginRequest);
 
-      if (response.status == Constants.zero) {
-        //success
-        //return either right
-        // return data
-        return Right(response.toDomain());
-      } else {
-        //failure -- business error
-        //return either left
-        return left(Failure(409, response.message ?? "business error message"));
+        if (response.status == ApiInternalStatus.SUCCESS) {
+          //success
+          //return either right
+          // return data
+          return Right(response.toDomain());
+        } else {
+          //failure -- business error
+          //return either left
+          return left(
+              Failure(ApiInternalStatus.FAILURE, response.message ?? ResponseMessage.DEFAULT));
+        }
+      } catch (error) {
+        return left(ErrorHandler.handle(error).failure);
       }
     } else {
       //return internet connection error
       //return either left
-      return left(Failure(501, "please check your internet connection"));
+      return left(DataSource.NO_INTERNET_CONNECTION.getFailure());
     }
   }
 }
