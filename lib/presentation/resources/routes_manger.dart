@@ -1,7 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_adv/presentation/forget_password/forget_password_view.dart';
-import 'package:flutter_adv/presentation/login/login_view.dart';
+import 'package:flutter_adv/presentation/login/view/login_view.dart';
 import 'package:flutter_adv/presentation/onboaring/view/onboarding_view.dart';
 import 'package:flutter_adv/presentation/register/register_view.dart';
 import 'package:flutter_adv/presentation/resources/strings_manger.dart';

@@ -18,6 +18,7 @@ dependencies:
   dartz: ^0.10.1
   pretty_dio_logger: ^1.1.1
   shared_preferences: ^2.0.13
+  freezed: ^1.1.1
 
 
   flutter_native_splash: ^2.2.19
